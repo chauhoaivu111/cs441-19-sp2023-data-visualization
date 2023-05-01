@@ -1,16 +1,17 @@
 
 
 const express = require("express");
-const puppeteer = require("puppeteer-core");
+
+import { executablePath } from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
 
 const app = express();
 
 app.get("/", async (req, res) => {
   try {
     const browser = await puppeteer.launch({
-      executablePath: process.env.GOOGLE_CHROME_BIN,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      headless: "new"
+      headless: true,
+      executablePath: executablePath(),
     });
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
