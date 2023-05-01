@@ -12,7 +12,7 @@ function App() {
   // /--------------------------------/
 
   useEffect(() => {
-    fetch("http://localhost:5000/covid19-data-e6525/us-central1/app")
+    fetch("https://covid19data.herokuapp.com/")
       .then((response) => response.json())
       .then((data) => setCovidData(data))
       .catch((error) => console.error(error));
@@ -32,6 +32,8 @@ function App() {
       String(value).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
+
+  console.log(covidData);
 
   return (
     <div className="App">
@@ -82,10 +84,10 @@ function App() {
               <th>Total Recovered</th>
               <th>New Recovered</th>
               <th>Active Cases</th>
-              <th>Total cases / 1M pop</th>
-              <th>Deaths / 1M pop</th>
+              <th>Active Cases/ 1M pop</th>
+              <th>Deaths/ 1M pop</th>
               <th>Total tests</th>
-              <th>Test /10M pop</th>
+              <th>Serious,Critical</th>
               <th>Population</th>
               <th>Continent</th>
             </tr>
@@ -93,32 +95,41 @@ function App() {
           <tbody>
             {filteredData.map((row, index) => (
               <tr key={index}>
-                <td>{row["Country,\nOther"]}</td>
-                <td>{row["Total\nCases"]}</td>
-                <td className={row["New\nCases"] ? "active_newcases" : ""}>
-                  {row["New\nCases"]}
+                <td>{row["Country,Other"]}</td>
+                <td>{row["TotalCases"]}</td>
+                <td className={row["NewCases"] ? "active_newcases" : ""}>
+                  {row["NewCases"]}
                 </td>
-                <td>{row["Total\nDeaths"]}</td>
-                <td className={row["New\nDeaths"] ? "active" : ""}>
-                  {row["New\nDeaths"]}
+                <td>{row["TotalDeaths"]}</td>
+                <td className={row["NewDeaths"] ? "active" : ""}>
+                  {row["NewDeaths"]}
                 </td>
-                <td>{row["Total\nRecovered"]}</td>
+                <td>
+                  {row["TotalRecovered"] === "N/A" ? "" : row["TotalRecovered"]}
+                </td>
                 <td
                   className={
-                    row["New\nRecovered"] === "N/A"
+                    row["NewRecovered"] === "N/A"
                       ? ""
-                      : "" || row["New\nRecovered"]
+                      : row["NewRecovered"] || row["NewRecovered"]
                       ? "active_newrecovered"
                       : ""
                   }
                 >
-                  {row["New\nRecovered"]}
+                  {row["NewRecovered"] === "N/A" ? "" : row["NewRecovered"]}
                 </td>
-                <td>{row["Active\nCases"]}</td>
-                <td>{row["Tot Cases/\n1M pop"]}</td>
-                <td>{row["Deaths/\n1M pop"]}</td>
-                <td>{row["Total\nTests"]}</td>
-                <td>{row["Tests/\n1M pop"]}</td>
+
+                <td>
+                  {row["ActiveCases"] === "N/A" ? "" : row["ActiveCases"]}
+                </td>
+                <td>{row["Active Cases/1M pop"]}</td>
+                <td>{row["Deaths/1M pop"]}</td>
+                <td>{row["TotalTests"]}</td>
+                <td>
+                  {row["Serious,Critical"] === "N/A"
+                    ? ""
+                    : row["Serious,Critical"]}
+                </td>
                 <td>{row["Population"]}</td>
                 <td>{row["Continent"]}</td>
               </tr>
@@ -131,12 +142,3 @@ function App() {
 }
 
 export default App;
-
-
-// "start": "npm run shell",\
-
-// "ignore": [
-  //   "firebase.json",
-  //   "**/.*",
-  //   "**/node_modules/**"
-  // ],
