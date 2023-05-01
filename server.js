@@ -1,6 +1,33 @@
 
 
 
+
+const functions = require("firebase-functions");
+const puppeteer = require("puppeteer");
+
+exports.runBrowser = functions.runWith({ timeoutSeconds: 300 }).https.onRequest(async (req, res) => {
+  try {
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+    const context = await browser.createIncognitoBrowserContext();
+    const page = await context.newPage();
+
+    await page.goto("https://www.worldometers.info/coronavirus/",{ timeout: 60000 });
+    
+    const title = await page.title();
+
+    await browser.close();
+
+    res.send(`Title: ${title}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error running browser");
+  }
+});
+
+
+
 // const express = require('express');
 // const puppeteer = require('puppeteer');
 // const app = express();
