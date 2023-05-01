@@ -8,25 +8,24 @@ app.get("/", async (req, res) => {
   try {
     const response = await axios.get("https://www.worldometers.info/coronavirus/", { timeout: 60000 });
     const $ = cheerio.load(response.data);
-    const title = $("title").text();
 
     // Get the table data
     const data = [];
     const table = $("#main_table_countries_today");
+    const rows = table.find("tr");
     const headers = [];
-    const headerCols = table.find("thead tr th");
-    headerCols.each((j, headerCol) => {
-      headers.push($(headerCol).text().trim());
+    $(rows[0]).find("th").each((i, header) => {
+      headers.push($(header).text().trim());
     });
-    data.push(headers);
-    const rows = table.find("tbody tr");
     rows.each((i, row) => {
       const cols = $(row).find("td");
-      const rowData = [];
+      const rowData = {};
       cols.each((j, col) => {
-        rowData.push($(col).text().trim());
+        rowData[headers[j]] = $(col).text().trim();
       });
-      data.push(rowData);
+      if (Object.keys(rowData).length > 0) {
+        data.push(rowData);
+      }
     });
   
     res.json(data);
