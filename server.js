@@ -1,11 +1,11 @@
 
 
-
-
-const functions = require("firebase-functions");
+const express = require("express");
 const puppeteer = require("puppeteer");
 
-exports.runBrowser = functions.runWith({ timeoutSeconds: 300 }).https.onRequest(async (req, res) => {
+const app = express();
+
+app.get("/", async (req, res) => {
   try {
     const browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
@@ -14,7 +14,7 @@ exports.runBrowser = functions.runWith({ timeoutSeconds: 300 }).https.onRequest(
     const page = await context.newPage();
 
     await page.goto("https://www.worldometers.info/coronavirus/",{ timeout: 60000 });
-    
+
     const title = await page.title();
 
     await browser.close();
@@ -24,6 +24,11 @@ exports.runBrowser = functions.runWith({ timeoutSeconds: 300 }).https.onRequest(
     console.error(err);
     res.status(500).send("Error running browser");
   }
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
 
 
