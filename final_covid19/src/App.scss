@@ -1,0 +1,365 @@
+
+// ------------------------------------laoding--------------------------------
+
+
+
+.loading {
+  display: flex;
+  align-items: center;
+
+  margin: 25% 45% ;
+  h3 {
+    padding-right:0.5rem ;
+  }
+  
+
+}
+
+// --------------------------------------------------------
+h1{
+  color: red;
+ 
+    text-align: center;
+}
+
+.linechart {
+
+
+  margin: 10px 100px 100px 100px ;
+
+  cursor: pointer;
+}
+canvas {
+  width: 100px;
+  height: 100px;
+}
+
+.frame_title {
+
+  margin: 60px;
+
+  h1{
+   
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #333; 
+    text-shadow: 2px 2px #ccc;
+  }
+}
+
+.frame_cover_img{
+
+  width: 1210px;
+  height: 550px;
+  margin: auto;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+  }
+}
+
+
+.main_table_covid_frame {
+
+  margin:  auto;
+  //  align-items: center;
+    // justify-self: center;
+    position: relative;
+    overflow-y: scroll;
+    max-height: 1000px;
+    width: 1300px !important;
+
+    margin-bottom: 200px;
+
+    table {
+       text-align: center;
+       margin: auto;
+       position: relative;
+      //  width: 100%;
+       height: 100% !important;
+      
+
+
+
+      thead{
+        text-align: center;
+
+        tr {
+
+          background-color: silver;
+          height: 50px;
+           th{
+            width: 120px;
+           }
+          
+  
+         
+         
+      
+        }
+
+      }
+
+      td {
+
+        border: 1px solid black;
+        &:hover{
+          background-color: rgb(179, 179, 240);
+        }
+
+      }
+
+     
+
+   
+
+      @keyframes slide {
+        0% { opacity: 1; }
+        50% { opacity: 0.6;  }
+        100% { opacity: 1; }
+      }
+      
+      /* Apply animation to background element */
+      .active {
+        background-color: red;
+        opacity: 1;
+        color: white;
+        font-size: large;
+        font-weight: 400;
+        animation-name: slide;
+        animation-duration: 3s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+      }
+
+     
+      
+      /* Apply animation to background element */
+      .active_newcases {
+        background-color: rgb(206, 156, 6);
+        opacity: 1;
+        color: white;
+        font-size: large;
+        font-weight: 400;
+        animation-name: slide;
+        animation-duration: 3s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+      }
+
+      /* Apply animation to background element */
+      .active_newrecovered {
+        background-color: rgb(4, 171, 107);
+        opacity: 1;
+        color: white;
+        font-size: large;
+        font-weight: 400;
+        animation-name: slide;
+        animation-duration: 3s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+      }
+
+      
+
+    }
+
+  
+}
+
+
+.main_table_covid_frame::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
+}
+
+.main_table_covid_frame::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 20px;
+  border: 2px solid #f5f5f5;
+}
+
+.main_table_covid_frame::-webkit-scrollbar-thumb:hover {
+  background-color: #999;
+}
+
+
+// ---------------------------- newscards.css--------------------------------------------------
+
+
+
+h1{
+  margin: 30px 0 30px 0;
+}
+
+.big_frame_newscard{
+  
+  width: 80% ;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  row-gap:40px;
+  // background-color: aqua;
+
+
+
+  .frame_newscard{
+   width: 90% ;
+   margin: auto;
+ 
+   border-radius: 15px;
+    border: 0.5px solid #EDEDED;
+
+    .frame_title{
+
+      width: 90%;
+      margin: auto;
+      height: 3rem;
+
+      h3{
+      font-size: 1rem;
+      // color: #f7ed2f;
+      color: #332ff7;
+      text-align: justify;
+
+    }
+
+    }
+
+    .frame_summary{
+
+      width: 90%;
+      height: 8rem;
+      margin: auto;
+      margin-top: 1rem;
+      // background-color: antiquewhite;
+      
+      p{
+        color: black;
+        text-align: justify;
+      }
+    }
+
+    .frame_date{
+      width: 95%;
+      text-align: right;
+
+      p {
+        font-size: 0.9rem;
+        color: black;
+      }
+    }
+    .frame_rank{
+
+     
+      p{
+        color: black;
+        font-weight: 500;
+        display: flex;
+      }
+      &__icon {
+        display: flex;
+      align-items: center;
+      justify-content: center;
+      justify-items: center;
+      span {
+        font-weight: 300;
+        padding-right: 0.3rem;
+      }
+
+
+      }
+
+    }
+
+    .frame_author{
+      width: 90%;
+     
+      margin: auto;
+     display: flex  ;
+     justify-content: space-between;
+
+
+      
+
+        span {
+          font-weight: 200;
+          display: flex;
+          justify-items: center;
+          align-items: center;
+          color: black;
+
+          p{
+            font-weight: 500;
+            padding-left: 0.3rem;
+          }
+          
+        
+      }
+    }
+
+    
+   
+    
+  
+  }
+
+  .frame_newscard:hover{
+
+  box-shadow:rgba(100,100,111,0.2) 0px 7px 29px 0px;
+  transform: translateY(-5px);
+
+}
+
+
+}
+
+
+.frame_piantion_news{
+
+  margin: auto;
+  width: 50%;
+
+  padding: 30px 0 30px 0;
+ 
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  justify-items: center;
+
+
+  
+
+}
+
+//--------------------------------------------- time_search bar---------------------------------------
+
+
+.frame_time_search{
+
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  margin: auto;
+
+  align-items: center;
+  height: 30px;
+
+  .search_bar {
+
+   input {
+  border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none; 
+  height: 1rem;
+  width: 12rem;
+}
+
+
+input:focus {
+  border-bottom-color: #000; 
+}
+  }
+}
