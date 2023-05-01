@@ -10,6 +10,7 @@ app.get("/", async (req, res) => {
     const browser = await puppeteer.launch({
       executablePath: process.env.GOOGLE_CHROME_BIN,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      headless: "new"
     });
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
