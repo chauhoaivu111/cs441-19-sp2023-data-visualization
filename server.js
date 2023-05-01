@@ -9,43 +9,21 @@ app.get("/", async (req, res) => {
   try {
     const response = await axios.get("https://www.worldometers.info/coronavirus/", { timeout: 60000 });
     const $ = cheerio.load(response.data);
+    const title = $("title").text();
 
     // Get the table data
     const data = [];
-    $('#main_table_countries_today tbody tr').each((i, row) => {
-      if (i === 0) {
-        // Skip the header row
-        return;
-      }
-      const cells = $(row).find('td');
-      const country = $(cells[0]).text().trim();
-      const totalCases = $(cells[1]).text().trim();
-      const newCases = $(cells[2]).text().trim();
-      const totalDeaths = $(cells[3]).text().trim();
-      const newDeaths = $(cells[4]).text().trim();
-      const totalRecovered = $(cells[5]).text().trim();
-      const activeCases = $(cells[6]).text().trim();
-      const criticalCases = $(cells[7]).text().trim();
-      const casesPerMillion = $(cells[8]).text().trim();
-      const deathsPerMillion = $(cells[9]).text().trim();
-      const tests = $(cells[10]).text().trim();
-      const testsPerMillion = $(cells[11]).text().trim();
-      data.push({
-        country,
-        totalCases,
-        newCases,
-        totalDeaths,
-        newDeaths,
-        totalRecovered,
-        activeCases,
-        criticalCases,
-        casesPerMillion,
-        deathsPerMillion,
-        tests,
-        testsPerMillion,
+    const table = $("#main_table_countries_today");
+    const rows = table.find("tr");
+    rows.each((i, row) => {
+      const cols = $(row).find("td");
+      const rowData = [];
+      cols.each((j, col) => {
+        rowData.push($(col).text().trim());
       });
+      data.push(rowData);
     });
-
+  
     res.json(data);
   } catch (err) {
     console.error(err);
