@@ -1,9 +1,7 @@
 
-
 const express = require("express");
-
-import { executablePath } from 'puppeteer';
-import puppeteer from 'puppeteer-extra';
+const puppeteer = require("puppeteer-extra");
+const { executablePath } = require('puppeteer');
 
 const app = express();
 
@@ -33,6 +31,7 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
 
 
 
