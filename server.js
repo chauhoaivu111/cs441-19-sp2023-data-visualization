@@ -1,29 +1,20 @@
 
 const express = require("express");
-const puppeteer = require("puppeteer-extra");
-const { executablePath } = require('puppeteer');
+const axios = require("axios");
+const cheerio = require("cheerio");
 
 const app = express();
 
 app.get("/", async (req, res) => {
   try {
-    const browser = await puppeteer.launch({
-      headless: true,
-      executablePath: executablePath(),
-    });
-    const context = await browser.createIncognitoBrowserContext();
-    const page = await context.newPage();
-
-    await page.goto("https://www.worldometers.info/coronavirus/",{ timeout: 60000 });
-
-    const title = await page.title();
-
-    await browser.close();
+    const response = await axios.get("https://www.worldometers.info/coronavirus/", { timeout: 60000 });
+    const $ = cheerio.load(response.data);
+    const title = $("title").text();
 
     res.send(`Title: ${title}`);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error running browser");
+    res.status(500).send("Error fetching data");
   }
 });
 
@@ -31,7 +22,6 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
-
 
 
 
