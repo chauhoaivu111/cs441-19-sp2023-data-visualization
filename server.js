@@ -1,13 +1,14 @@
 
 
 const express = require("express");
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
 
 const app = express();
 
 app.get("/", async (req, res) => {
   try {
     const browser = await puppeteer.launch({
+      executablePath: process.env.GOOGLE_CHROME_BIN,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
     const context = await browser.createIncognitoBrowserContext();
